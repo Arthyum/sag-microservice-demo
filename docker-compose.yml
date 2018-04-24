@@ -5,8 +5,8 @@ networks:
 
 services:
 
-  iplocator_1:
-    image: softwareag/iplocator:10.1-msc
+  userservice_1:
+    image: softwareag/userservice:10.1-msc
     build:
       context: .
       dockerfile: Dockerfile
@@ -17,8 +17,8 @@ services:
     depends_on:
       - consul-server-bootstrap
 
-  userinfo_1:
-    image: softwareag/userinfo:10.1-msc
+  iplocator_1:
+    image: softwareag/iplocator:10.1-msc
     build:
       context: .
       dockerfile: Dockerfile
@@ -29,8 +29,8 @@ services:
     depends_on:
       - consul-server-bootstrap
 
-  userservice_1:
-    image: softwareag/userservice:10.1-msc
+  userinfo_1:
+    image: softwareag/userinfo:10.1-msc
     build:
       context: .
       dockerfile: Dockerfile
