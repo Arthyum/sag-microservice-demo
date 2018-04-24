@@ -24,14 +24,17 @@ and click "proceed to checkout" button.
    ```
 3. License 
 
-   You shold be able to run this demo without any license...just leveraging the trial version of the SoftwareAG Microservice Container
-   But if you have a license, you can also apply it by:
+   The SoftwareAG Microservice Container docker image comes bundled with a time-limited trial license.
+   So you shoud be able to run this demo AS-IS without any issues.
    
-   1. copying it in the root of this directory and naming it "licenseKey.xml"
-   2. edit the file ./Dockerfile.msc.custom
-   3. uncomment the line 6 that starts with "COPY licenseKey.xml"
+   But if you are a current customer, and have an actual license, 
+   and don't want to see the "License Key is Expired or Invalid." at the top of webMethods Administration UI,
+   you can also apply it by doing the following:
    
-   
+   1. Copying it in the root of this directory and naming it "licenseKey.xml"
+   2. Edit the file ./Dockerfile.msc.custom
+   3. Uncomment the line 6 that starts with "COPY licenseKey.xml"
+
 ## Run the demo
 
 Build the docker images:
