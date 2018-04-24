@@ -83,3 +83,63 @@ The demo micro services are defined as follow:
   ```
   curl -i -H "Accept: application/json" -H "Content-Type: application/json" -u Administrator:manage -X GET http://localhost:5555/restv2/userdetails/
   ```
+  
+## Looking under the hood
+
+To see and possibly modify the actual microservices from your webmethods Designer, run the DEV compose.
+
+Note: if you're still running the demo above, turn it off first:
+
+```
+docker-compose down
+```
+
+Then, run:
+
+```
+docker-compose -f docker-compose-dev.yml up -d
+```
+
+That will start 1 Microservice container (accessible at http://localhost:5555) to which you can connect your webmethods Designer,
+like you would for any other Integration Server.
+
+From there, copy the 4 packages in ./wMPackages to your local ./replicate/inbound/ folder, 
+which is mapped (via Docker volume) toi the actual wM IS Inbound folder in the docker instance.
+
+And finally, connect to wM Web Admin UI (http://localhost:5555), login with "Administrator:manage", and import the 4 packages, 
+like you would for any other Integration Server:
+ - Go to "Package" > "Management"
+ - Click "Install Inbound Releases"
+ - In the dropdown, you should see all 4 packages
+ - Click the "Install Release" button for each of them
+
+Now, all 4 package should be installed and running, with all endpoints accessible on http://localhost:5555/ this time 
+(because they are all on the same Integration Server)
+
+- IP locator service
+  - Endpoint: http://localhost:5555/restv2/iplocator/{ipv4}
+  - Example:
+  ```
+  curl -i -H "Accept: application/json" -H "Content-Type: application/json" -u Administrator:manage -X GET http://localhost:5555/restv2/iplocator/208.80.152.201
+  ```
+
+- User Info service (mock a DB call by returning random user data)
+  - Endpoint: http://localhost:5555/restv2/userinfo/{userId:someAlphaNumericalValue - Or empty -- will generate something random for you}
+  - Example:
+  ```
+  curl -i -H "Accept: application/json" -H "Content-Type: application/json" -u Administrator:manage -X GET http://localhost:5555/restv2/userinfo/
+  ```
+
+- Fibonacci serie
+  - Endpoint: http://localhost:5555/restv2/NextNumber/{positive number: index in the serie}
+  - Example:
+  ```
+  curl -i -H "Accept: application/json" -H "Content-Type: application/json" -u Administrator:manage -X GET http://localhost:5555/restv2/NextNumber/123
+  ```
+
+- Macro User Info Service that aggregates the User Info + IP location of the user
+  - Endpoint: http://localhost:5555/restv2/userdetails/{userId:someAlphaNumericalValue}
+  - Example:
+  ```
+  curl -i -H "Accept: application/json" -H "Content-Type: application/json" -u Administrator:manage -X GET http://localhost:5555/restv2/userdetails/
+  ```
