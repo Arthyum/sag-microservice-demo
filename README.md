@@ -5,6 +5,33 @@ using the built-in Consul integration for service discovery, circuit-breaker pat
 
 The demo starts a Consul cluster (3 Consul servers, 3 Consul Agents) and 4 Microservice Container, each with their own REST endpoints.
 
+## Prerequisites
+
+1. This demo uses Docker, so you'll need it installed.
+   Check official Docker doc https://docs.docker.com/install/ for details.
+
+2. This demo relies on the SoftwareAG Microservice Container localted in Docker Store.
+
+   Go to https://store.docker.com/images/softwareag-webmethods-microservicescontainer,
+login with your Docker Store Credetials, 
+and click "proceed to checkout" button.
+
+   Once you have filled out the info and accepted the agreement, you should be able to pull the image to your workstation, as follows:
+
+   ```
+   docker login
+   docker pull store/softwareag/webmethods-microservicescontainer:10.1
+   ```
+3. License 
+
+   You shold be able to run this demo without any license...just leveraging the trial version of the SoftwareAG Microservice Container
+   But if you have a license, you can also apply it by:
+   
+   1. copying it in the root of this directory and naming it "licenseKey.xml"
+   2. edit the file ./Dockerfile.msc.custom
+   3. uncomment the line 6 that starts with "COPY licenseKey.xml"
+   
+   
 ## Run the demo
 
 Build the docker images:
