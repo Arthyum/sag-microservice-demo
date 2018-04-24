@@ -1,0 +1,9 @@
+FROM store/softwareag/webmethods-microservicescontainer:10.1
+
+MAINTAINER fabien.sanglier@softwareaggov.com
+
+### ADD license key
+COPY licenseKey.xml /sag/IntegrationServer/instances/default/config/licenseKey.xml
+
+### ADD consul registry info
+COPY msc_consul_config_registry.cnf /sag/IntegrationServer/instances/default/config/microservices/registry.cnf

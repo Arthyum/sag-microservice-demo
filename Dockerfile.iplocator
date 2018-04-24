@@ -1,0 +1,13 @@
+FROM custom/softwareag/webmethods-microservicescontainer:10.1
+
+MAINTAINER fabien.sanglier@softwareaggov.com
+
+ENV SAG_HOME=/sag
+ENV INSTANCE_NAME=default
+ENV PACKAGES_HOME=$SAG_HOME/IntegrationServer/instances/${INSTANCE_NAME}/packages
+
+COPY wMPackages/WxIPLocator.zip $PACKAGES_HOME/WxIPLocator/WxIPLocator.zip
+RUN yum install -y unzip && \
+unzip $PACKAGES_HOME/WxIPLocator/WxIPLocator.zip -d $PACKAGES_HOME/WxIPLocator/ && \
+rm -f $PACKAGES_HOME/WxIPLocator/WxIPLocator.zip && \
+yum remove -y unzip

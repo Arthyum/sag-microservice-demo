@@ -1,0 +1,13 @@
+FROM custom/softwareag/webmethods-microservicescontainer:10.1
+
+MAINTAINER fabien.sanglier@softwareaggov.com
+
+ENV SAG_HOME=/sag
+ENV INSTANCE_NAME=default
+ENV PACKAGES_HOME=$SAG_HOME/IntegrationServer/instances/${INSTANCE_NAME}/packages
+
+COPY wMPackages/WxFibonacci.zip $PACKAGES_HOME/WxFibonacci/WxFibonacci.zip
+RUN yum install -y unzip && \
+unzip $PACKAGES_HOME/WxFibonacci/WxFibonacci.zip -d $PACKAGES_HOME/WxFibonacci/ && \
+rm -f $PACKAGES_HOME/WxFibonacci/WxFibonacci.zip && \
+yum remove -y unzip

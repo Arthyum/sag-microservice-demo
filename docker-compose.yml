@@ -1,0 +1,81 @@
+version: "3.0"
+
+networks:
+  sagdemo:
+
+services:
+
+  iplocator_1:
+    image: softwareag/iplocator:10.1-msc
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - sagdemo
+    ports:
+      - "5555:5555"
+    depends_on:
+      - consul-server-bootstrap
+
+  userinfo_1:
+    image: softwareag/userinfo:10.1-msc
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - sagdemo
+    ports:
+      - "5556:5555"
+    depends_on:
+      - consul-server-bootstrap
+
+  userservice_1:
+    image: softwareag/userservice:10.1-msc
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - sagdemo
+    ports:
+      - "5557:5555"
+    depends_on:
+      - consul-server-bootstrap
+
+  fibonacci_1:
+    image: softwareag/fibonacci:10.1-msc
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - sagdemo
+    ports:
+      - "5558:5555"
+    depends_on:
+      - consul-server-bootstrap
+
+  consul-agent-1: &consul-agent
+    image: consul:latest
+    networks:
+      - sagdemo
+    command: "agent -retry-join consul-server-bootstrap -client 0.0.0.0"
+
+  consul-agent-2:
+    <<: *consul-agent
+
+  consul-agent-3:
+    <<: *consul-agent
+
+  consul-server-1: &consul-server
+    <<: *consul-agent
+    command: "agent -server -retry-join consul-server-bootstrap -client 0.0.0.0"
+
+  consul-server-2:
+    <<: *consul-server
+
+  consul-server-bootstrap:
+    <<: *consul-agent
+    ports:
+      - "8400:8400"
+      - "8500:8500"
+      - "8600:8600"
+    command: "agent -server -bootstrap-expect 3 -ui -client 0.0.0.0"
