@@ -6,7 +6,7 @@ networks:
 services:
 
   userservice_1:
-    image: softwareag/userservice:10.1-msc
+    image: ${REGISTRY}softwareag/userservice:${TAG}-msc
     build:
       context: .
       dockerfile: Dockerfile
@@ -18,7 +18,7 @@ services:
       - consul-server-bootstrap
 
   iplocator_1:
-    image: softwareag/iplocator:10.1-msc
+    image: ${REGISTRY}softwareag/iplocator:${TAG}-msc
     build:
       context: .
       dockerfile: Dockerfile
@@ -30,7 +30,7 @@ services:
       - consul-server-bootstrap
 
   userinfo_1:
-    image: softwareag/userinfo:10.1-msc
+    image: ${REGISTRY}softwareag/userinfo:${TAG}-msc
     build:
       context: .
       dockerfile: Dockerfile
@@ -42,7 +42,7 @@ services:
       - consul-server-bootstrap
 
   fibonacci_1:
-    image: softwareag/fibonacci:10.1-msc
+    image: ${REGISTRY}softwareag/fibonacci:${TAG}-msc
     build:
       context: .
       dockerfile: Dockerfile

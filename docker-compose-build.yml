@@ -2,40 +2,42 @@ version: "3.0"
 
 services:
 
-  mscconsul:
-    image: custom/softwareag/webmethods-microservicescontainer:10.1
+  msc:
+    image: ${REGISTRY}custom/softwareag/webmethods-microservicescontainer:${TAG}
     build:
       context: .
       dockerfile: Dockerfile.msc.custom
+      args:
+        SAG_HOME: ${SAG_HOME}
 
   iplocator:
-    image: softwareag/iplocator:10.1-msc
+    image: ${REGISTRY}softwareag/iplocator:${TAG}-msc
     build:
       context: .
       dockerfile: Dockerfile.iplocator
     depends_on:
-      - mscconsul
+      - msc
 
   userinfo:
-    image: softwareag/userinfo:10.1-msc
+    image: ${REGISTRY}softwareag/userinfo:${TAG}-msc
     build:
       context: .
       dockerfile: Dockerfile.userinfo
     depends_on:
-      - mscconsul
+      - msc
 
   userservice:
-    image: softwareag/userservice:10.1-msc
+    image: ${REGISTRY}softwareag/userservice:${TAG}-msc
     build:
       context: .
       dockerfile: Dockerfile.userservice
     depends_on:
-      - mscconsul
+      - msc
 
   fibonacci:
-    image: softwareag/fibonacci:10.1-msc
+    image: ${REGISTRY}softwareag/fibonacci:${TAG}-msc
     build:
       context: .
       dockerfile: Dockerfile.fibonacci
     depends_on:
-      - mscconsul
+      - msc
