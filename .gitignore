@@ -5,6 +5,8 @@ licenseKey.xml
 *_*.xml
 build/
 replicate/
+*.zip
+!wMPackages/*.zip
 
 # IDE
 .idea
@@ -53,7 +55,6 @@ Temporary Items
 *.jar
 *.war
 *.ear
-*.zip
 *.tar.gz
 *.rar
 
