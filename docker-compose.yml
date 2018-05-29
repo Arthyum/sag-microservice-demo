@@ -9,19 +9,7 @@ services:
     image: ${REGISTRY}softwareag/userservice:${TAG}-msc
     build:
       context: .
-      dockerfile: Dockerfile
-    networks:
-      - sagdemo
-    ports:
-      - "5555:5555"
-    depends_on:
-      - consul-server-bootstrap
-
-  iplocator_1:
-    image: ${REGISTRY}softwareag/iplocator:${TAG}-msc
-    build:
-      context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.userservice
     networks:
       - sagdemo
     ports:
@@ -29,11 +17,11 @@ services:
     depends_on:
       - consul-server-bootstrap
 
-  userinfo_1:
-    image: ${REGISTRY}softwareag/userinfo:${TAG}-msc
+  iplocator_1:
+    image: ${REGISTRY}softwareag/iplocator:${TAG}-msc
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.iplocator
     networks:
       - sagdemo
     ports:
@@ -41,15 +29,27 @@ services:
     depends_on:
       - consul-server-bootstrap
 
-  fibonacci_1:
-    image: ${REGISTRY}softwareag/fibonacci:${TAG}-msc
+  userinfo_1:
+    image: ${REGISTRY}softwareag/userinfo:${TAG}-msc
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.userinfo
     networks:
       - sagdemo
     ports:
       - "5558:5555"
+    depends_on:
+      - consul-server-bootstrap
+
+  fibonacci_1:
+    image: ${REGISTRY}softwareag/fibonacci:${TAG}-msc
+    build:
+      context: .
+      dockerfile: Dockerfile.fibonacci
+    networks:
+      - sagdemo
+    ports:
+      - "5559:5555"
     depends_on:
       - consul-server-bootstrap
 
