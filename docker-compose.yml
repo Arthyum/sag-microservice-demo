@@ -1,7 +1,7 @@
 version: "3.0"
 
 networks:
-  sagdemo:
+  sagdemoruntime:
 
 services:
 
@@ -11,7 +11,7 @@ services:
       context: .
       dockerfile: Dockerfile.userservice
     networks:
-      - sagdemo
+      - sagdemoruntime
     ports:
       - "5556:5555"
     depends_on:
@@ -23,7 +23,7 @@ services:
       context: .
       dockerfile: Dockerfile.iplocator
     networks:
-      - sagdemo
+      - sagdemoruntime
     ports:
       - "5557:5555"
     depends_on:
@@ -35,7 +35,7 @@ services:
       context: .
       dockerfile: Dockerfile.userinfo
     networks:
-      - sagdemo
+      - sagdemoruntime
     ports:
       - "5558:5555"
     depends_on:
@@ -47,7 +47,7 @@ services:
       context: .
       dockerfile: Dockerfile.fibonacci
     networks:
-      - sagdemo
+      - sagdemoruntime
     ports:
       - "5559:5555"
     depends_on:
@@ -56,7 +56,7 @@ services:
   consul-agent-1: &consul-agent
     image: consul:latest
     networks:
-      - sagdemo
+      - sagdemoruntime
     command: "agent -retry-join consul-server-bootstrap -client 0.0.0.0"
 
   consul-agent-2:
