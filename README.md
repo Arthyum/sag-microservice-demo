@@ -108,7 +108,7 @@ That will start 1 Microservice container (accessible at http://localhost:5555) t
 like you would for any other Integration Server.
 
 From there, copy the 4 packages in ./wMPackages to your local ./replicate/inbound/ folder, 
-which is mapped (via Docker volume) toi the actual wM IS Inbound folder in the docker instance.
+which is mapped (via Docker volume) to the actual wM IS Inbound folder in the docker instance.
 
 And finally, connect to wM Web Admin UI (http://localhost:5555), login with "Administrator:manage", and import the 4 packages, 
 like you would for any other Integration Server:
