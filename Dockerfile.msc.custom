@@ -1,12 +1,14 @@
-#FROM store/softwareag/webmethods-microservicescontainer:10.1
-FROM registry.docker.tests:5000/softwareag/msc:10.1
+ARG PARENT_IMAGE
+
+FROM $PARENT_IMAGE
 
 MAINTAINER fabien.sanglier@softwareaggov.com
 
 ARG SAG_HOME
+ARG MSC_INSTANCE_NAME
 
-### ADD license key
-COPY licenseKey.xml $SAG_HOME/IntegrationServer/instances/default/config/licenseKey.xml
+### ADD license key -- use embedded trial
+##COPY licenseKey.xml $SAG_HOME/IntegrationServer/instances/${MSC_INSTANCE_NAME}/config/licenseKey.xml
 
 ### ADD consul registry info
-COPY msc_consul_config_registry.cnf $SAG_HOME/IntegrationServer/instances/default/config/microservices/registry.cnf
+COPY msc_consul_config_registry.cnf $SAG_HOME/IntegrationServer/instances/${MSC_INSTANCE_NAME}/config/microservices/registry.cnf

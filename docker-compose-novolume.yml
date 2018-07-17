@@ -1,26 +1,50 @@
 version: "3.0"
 
 networks:
-  sagdemodev:
+  sagdemoruntime:
 
 services:
 
-  msc1:
-    image: ${REGISTRY}/softwareag/webmethods-microservicesruntime:${TAG}
-    networks:
-      - sagdemodev
-    volumes: 
-      - ./replicate:${SAG_HOME}/IntegrationServer/instances/default/replicate
-      - ./msc_consul_config_registry.cnf:${SAG_HOME}/IntegrationServer/instances/default/config/microservices/registry.cnf
+  userservice_1:
+    image: custom/softwareag/msc-userservice:${TAG}
     ports:
-      - "5555:5555"
+      - "5556:5555"
+    networks:
+      - sagdemoruntime
+    depends_on:
+      - consul-server-bootstrap
+
+  iplocator_1:
+    image: custom/softwareag/msc-iplocator:${TAG}
+    ports:
+      - "5557:5555"
+    networks:
+      - sagdemoruntime
+    depends_on:
+      - consul-server-bootstrap
+
+  userinfo_1:
+    image: custom/softwareag/msc-userinfo:${TAG}
+    ports:
+      - "5558:5555"
+    networks:
+      - sagdemoruntime
+    depends_on:
+      - consul-server-bootstrap
+
+  fibonacci_1:
+    image: custom/softwareag/msc-fibonacci:${TAG}
+    ports:
+      - "5559:5555"
+    networks:
+      - sagdemoruntime
     depends_on:
       - consul-server-bootstrap
 
   consul-agent-1: &consul-agent
     image: consul:latest
     networks:
-      - sagdemodev
+      - sagdemoruntime
     command: "agent -retry-join consul-server-bootstrap -client 0.0.0.0"
 
   consul-agent-2:

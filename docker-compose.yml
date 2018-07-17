@@ -6,50 +6,74 @@ networks:
 services:
 
   userservice_1:
-    image: ${REGISTRY}softwareag/userservice:${TAG}-msc
+    image: custom/softwareag/msc-userservice:${TAG}
     build:
       context: .
       dockerfile: Dockerfile.userservice
-    networks:
-      - sagdemoruntime
+      args:
+        PARENT_IMAGE: ${REGISTRY}/softwareag/webmethods-microservicesruntime:${TAG}
+        SAG_HOME: ${SAG_HOME}
+        MSC_INSTANCE_NAME: default
+    volumes:
+      - ./msc_consul_config_registry.cnf:${SAG_HOME}/IntegrationServer/instances/default/config/microservices/registry.cnf
     ports:
       - "5556:5555"
+    networks:
+      - sagdemoruntime
     depends_on:
       - consul-server-bootstrap
 
   iplocator_1:
-    image: ${REGISTRY}softwareag/iplocator:${TAG}-msc
+    image: custom/softwareag/msc-iplocator:${TAG}
     build:
       context: .
       dockerfile: Dockerfile.iplocator
-    networks:
-      - sagdemoruntime
+      args:
+        PARENT_IMAGE: ${REGISTRY}/softwareag/webmethods-microservicesruntime:${TAG}
+        SAG_HOME: ${SAG_HOME}
+        MSC_INSTANCE_NAME: default
+    volumes:
+      - ./msc_consul_config_registry.cnf:${SAG_HOME}/IntegrationServer/instances/default/config/microservices/registry.cnf
     ports:
       - "5557:5555"
+    networks:
+      - sagdemoruntime
     depends_on:
       - consul-server-bootstrap
 
   userinfo_1:
-    image: ${REGISTRY}softwareag/userinfo:${TAG}-msc
+    image: custom/softwareag/msc-userinfo:${TAG}
     build:
       context: .
       dockerfile: Dockerfile.userinfo
-    networks:
-      - sagdemoruntime
+      args:
+        PARENT_IMAGE: ${REGISTRY}/softwareag/webmethods-microservicesruntime:${TAG}
+        SAG_HOME: ${SAG_HOME}
+        MSC_INSTANCE_NAME: default
+    volumes:
+      - ./msc_consul_config_registry.cnf:${SAG_HOME}/IntegrationServer/instances/default/config/microservices/registry.cnf
     ports:
       - "5558:5555"
+    networks:
+      - sagdemoruntime
     depends_on:
       - consul-server-bootstrap
 
   fibonacci_1:
-    image: ${REGISTRY}softwareag/fibonacci:${TAG}-msc
+    image: custom/softwareag/msc-fibonacci:${TAG}
     build:
       context: .
       dockerfile: Dockerfile.fibonacci
-    networks:
-      - sagdemoruntime
+      args:
+        PARENT_IMAGE: ${REGISTRY}/softwareag/webmethods-microservicesruntime:${TAG}
+        SAG_HOME: ${SAG_HOME}
+        MSC_INSTANCE_NAME: default
+    volumes:
+      - ./msc_consul_config_registry.cnf:${SAG_HOME}/IntegrationServer/instances/default/config/microservices/registry.cnf
     ports:
       - "5559:5555"
+    networks:
+      - sagdemoruntime
     depends_on:
       - consul-server-bootstrap
 

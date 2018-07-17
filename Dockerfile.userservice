@@ -1,12 +1,19 @@
-FROM custom/softwareag/webmethods-microservicescontainer:10.1
+ARG PARENT_IMAGE
+
+FROM $PARENT_IMAGE
 
 MAINTAINER fabien.sanglier@softwareaggov.com
 
-ENV INSTANCE_NAME=default
-ENV PACKAGES_HOME=$SAG_HOME/IntegrationServer/instances/${INSTANCE_NAME}/packages
+ARG SAG_HOME
+ARG MSC_INSTANCE_NAME
 
+ENV PACKAGES_HOME=$SAG_HOME/IntegrationServer/instances/${MSC_INSTANCE_NAME}/packages
+
+COPY wMPackages/WxConsulHelper.zip $PACKAGES_HOME/WxConsulHelper/WxConsulHelper.zip
 COPY wMPackages/WxUserService.zip $PACKAGES_HOME/WxUserService/WxUserService.zip
 RUN yum install -y unzip && \
+unzip $PACKAGES_HOME/WxConsulHelper/WxConsulHelper.zip -d $PACKAGES_HOME/WxConsulHelper/ && \
+rm -f $PACKAGES_HOME/WxConsulHelper/WxConsulHelper.zip && \
 unzip $PACKAGES_HOME/WxUserService/WxUserService.zip -d $PACKAGES_HOME/WxUserService/ && \
 rm -f $PACKAGES_HOME/WxUserService/WxUserService.zip && \
 yum remove -y unzip

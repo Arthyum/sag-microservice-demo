@@ -1,12 +1,19 @@
-FROM custom/softwareag/webmethods-microservicescontainer:10.1
+ARG PARENT_IMAGE
+
+FROM $PARENT_IMAGE
 
 MAINTAINER fabien.sanglier@softwareaggov.com
 
-ENV INSTANCE_NAME=default
-ENV PACKAGES_HOME=$SAG_HOME/IntegrationServer/instances/${INSTANCE_NAME}/packages
+ARG SAG_HOME
+ARG MSC_INSTANCE_NAME
 
+ENV PACKAGES_HOME=$SAG_HOME/IntegrationServer/instances/${MSC_INSTANCE_NAME}/packages
+
+COPY wMPackages/WxConsulHelper.zip $PACKAGES_HOME/WxConsulHelper/WxConsulHelper.zip
 COPY wMPackages/WxFibonacci.zip $PACKAGES_HOME/WxFibonacci/WxFibonacci.zip
 RUN yum install -y unzip && \
+unzip $PACKAGES_HOME/WxConsulHelper/WxConsulHelper.zip -d $PACKAGES_HOME/WxConsulHelper/ && \
+rm -f $PACKAGES_HOME/WxConsulHelper/WxConsulHelper.zip && \
 unzip $PACKAGES_HOME/WxFibonacci/WxFibonacci.zip -d $PACKAGES_HOME/WxFibonacci/ && \
 rm -f $PACKAGES_HOME/WxFibonacci/WxFibonacci.zip && \
 yum remove -y unzip
