@@ -6,7 +6,12 @@ networks:
 services:
 
   msc1:
-    image: ${REGISTRY}/softwareag/webmethods-microservicesruntime:${TAG}
+    image: ${REGISTRY}custom/softwareag/webmethods-microservicescontainer:${TAG}
+    build:
+      context: .
+      dockerfile: Dockerfile.msc.custom
+      args:
+        SAG_HOME: ${SAG_HOME}
     networks:
       - sagdemodev
     volumes: 
