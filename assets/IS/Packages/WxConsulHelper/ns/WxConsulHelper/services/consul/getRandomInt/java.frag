@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Values version="2.0">
+  <value name="name">getRandomInt</value>
+  <value name="encodeutf8">true</value>
+  <value name="body">Ly8gcGlwZWxpbmUKSURhdGFDdXJzb3IgcGlwZWxpbmVDdXJzb3IgPSBwaXBlbGluZS5nZXRDdXJz
+b3IoKTsJCQpTdHJpbmcgc2l6ZSA9IElEYXRhVXRpbC5nZXRTdHJpbmcocGlwZWxpbmVDdXJzb3Is
+ICJzaXplIiApOwoKaW50IHJhbmRvbUludCA9IDA7CnRyeXsKCWludCBzID0gSW50ZWdlci5wYXJz
+ZUludChzaXplKTsKCXJhbmRvbUludCA9IGdldFJhbmRvbUludChzKTsKfSBjYXRjaCAoTnVtYmVy
+Rm9ybWF0RXhjZXB0aW9uIG5mZSl7CglyYW5kb21JbnQgPSAwOwp9CgpTdHJpbmcgcmFuZG9tSW50
+U3RyID0gIiIgKyByYW5kb21JbnQ7CklEYXRhVXRpbC5wdXQocGlwZWxpbmVDdXJzb3IsICJyYW5k
+b21JbnQiLCByYW5kb21JbnQpOwpJRGF0YVV0aWwucHV0KHBpcGVsaW5lQ3Vyc29yLCAicmFuZG9t
+SW50U3RyIiwgcmFuZG9tSW50U3RyKTsKcGlwZWxpbmVDdXJzb3IuZGVzdHJveSgpOw==</value>
+</Values>

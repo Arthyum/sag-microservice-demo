@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Values version="2.0">
+  <value name="node_type">interface</value>
+  <value name="node_subtype">unknown</value>
+  <value name="node_nsName">WxConsulHelper.services.consul</value>
+  <value name="is_public">false</value>
+  <value name="shared">cHJpdmF0ZSBzdGF0aWMgUmFuZG9tIGhkclJuZG0gPSBuZXcgUmFuZG9tKFN5c3RlbS5uYW5vVGlt
+ZSgpKTsKCnB1YmxpYyBzdGF0aWMgaW50IGdldFJhbmRvbUludChpbnQgbGVuZ3RoKXsKCWludCB2
+YWx1ZSA9IGhkclJuZG0ubmV4dEludChsZW5ndGgpOwoJcmV0dXJuIHZhbHVlOwp9</value>
+  <value name="encodeutf8">true</value>
+  <value name="extends"></value>
+  <array name="implements" type="value" depth="1">
+  </array>
+  <array name="imports" type="value" depth="1">
+    <value>java.util.Random</value>
+  </array>
+</Values>
