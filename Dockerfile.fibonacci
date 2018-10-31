@@ -7,13 +7,21 @@ MAINTAINER fabien.sanglier@softwareaggov.com
 ARG SAG_HOME
 ARG MSC_INSTANCE_NAME
 
+USER root
+
 ENV PACKAGES_HOME=$SAG_HOME/IntegrationServer/instances/${MSC_INSTANCE_NAME}/packages
 
-COPY wMPackages/WxConsulHelper.zip $PACKAGES_HOME/WxConsulHelper/WxConsulHelper.zip
-COPY wMPackages/WxFibonacci.zip $PACKAGES_HOME/WxFibonacci/WxFibonacci.zip
+COPY target/sag-microservices-demo/build/IS/WxConsulHelper.zip $PACKAGES_HOME/
+COPY target/sag-microservices-demo/build/IS/WxFibonacci.zip $PACKAGES_HOME/
+
 RUN yum install -y unzip && \
-unzip $PACKAGES_HOME/WxConsulHelper/WxConsulHelper.zip -d $PACKAGES_HOME/WxConsulHelper/ && \
-rm -f $PACKAGES_HOME/WxConsulHelper/WxConsulHelper.zip && \
-unzip $PACKAGES_HOME/WxFibonacci/WxFibonacci.zip -d $PACKAGES_HOME/WxFibonacci/ && \
-rm -f $PACKAGES_HOME/WxFibonacci/WxFibonacci.zip && \
+unzip $PACKAGES_HOME/WxConsulHelper.zip -d $PACKAGES_HOME/WxConsulHelper/ && \
+rm -f $PACKAGES_HOME/WxConsulHelper.zip && \
+chown -R sagadmin:sagadmin $PACKAGES_HOME/WxConsulHelper/ && \
+unzip $PACKAGES_HOME/WxFibonacci.zip -d $PACKAGES_HOME/WxFibonacci/ && \
+rm -f $PACKAGES_HOME/WxFibonacci.zip && \
+chown -R sagadmin:sagadmin $PACKAGES_HOME/WxFibonacci/ && \
 yum remove -y unzip
+
+# Set it for subsequent commands
+USER sagadmin
