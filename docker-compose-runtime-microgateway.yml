@@ -1,0 +1,93 @@
+version: "3.0"
+
+networks:
+  sagdemoruntime:
+    external: true
+
+services:
+
+  macroservice:
+    image: ${REG}apis/sag-microservices-demo/userservice:${TAG}
+    build:
+      context: .
+      dockerfile: Dockerfile.userservice
+      args:
+        PARENT_IMAGE: store/softwareag/webmethods-microservicesruntime:${TAG}
+        SAG_HOME: /opt/softwareag
+        MSC_INSTANCE_NAME: default
+    volumes:
+      - ./msc_consul_config_registry.cnf:${SAG_HOME}/IntegrationServer/instances/default/config/microservices/registry.cnf
+    ports:
+      - "5556:5555"
+    networks:
+      - sagdemoruntime
+    depends_on:
+      - msc_iplocator_1
+      - msc_userinfo_1
+      - msc_fibonacci_1
+
+  msc_iplocator_1:
+    image: ${REG}apis/sag-microservices-demo/iplocator:${TAG}
+    build:
+      context: .
+      dockerfile: Dockerfile.iplocator
+      args:
+        PARENT_IMAGE: store/softwareag/webmethods-microservicesruntime:${TAG}
+        SAG_HOME: /opt/softwareag
+        MSC_INSTANCE_NAME: default
+    volumes:
+      - ./msc_consul_config_registry.cnf:${SAG_HOME}/IntegrationServer/instances/default/config/microservices/registry.cnf
+    ports:
+      - "5557:5555"
+    networks:
+      - sagdemoruntime
+    depends_on:
+      - consul
+
+  msc_userinfo_1:
+    image: ${REG}apis/sag-microservices-demo/userinfo:${TAG}
+    build:
+      context: .
+      dockerfile: Dockerfile.userinfo
+      args:
+        PARENT_IMAGE: store/softwareag/webmethods-microservicesruntime:${TAG}
+        SAG_HOME: /opt/softwareag
+        MSC_INSTANCE_NAME: default
+    volumes:
+      - ./msc_consul_config_registry.cnf:${SAG_HOME}/IntegrationServer/instances/default/config/microservices/registry.cnf
+    ports:
+      - "5558:5555"
+    networks:
+      - sagdemoruntime
+    depends_on:
+      - consul
+
+  msc_fibonacci_1:
+    image: ${REG}apis/sag-microservices-demo/fibonacci:${TAG}
+    build:
+      context: .
+      dockerfile: Dockerfile.fibonacci
+      args:
+        PARENT_IMAGE: store/softwareag/webmethods-microservicesruntime:${TAG}
+        SAG_HOME: /opt/softwareag
+        MSC_INSTANCE_NAME: default
+    volumes:
+      - ./msc_consul_config_registry.cnf:${SAG_HOME}/IntegrationServer/instances/default/config/microservices/registry.cnf
+    ports:
+      - "5559:5555"
+    networks:
+      - sagdemoruntime
+    depends_on:
+      - consul
+
+  consul:
+    image: consul:1.2.3
+    command: "agent -server -dev -client=0.0.0.0 -ui -bootstrap -log-level warn"
+    networks:7
+      sagdemoruntime:
+        aliases:
+          - consul.test
+    ports:
+      - "8400:8400"
+      - "8500:8500"
+      - "8600:8600"

@@ -1,0 +1,72 @@
+version: "3.0"
+
+networks:
+  sagdemodev:
+    external: true
+
+services:
+  mscdev:
+    image: store/softwareag/webmethods-microservicesruntime:${TAG}
+    networks:
+      sagdemodev:
+        aliases:
+          - fibonacci.docker.tests
+          - iplocator.docker.tests
+          - userinfo.docker.tests
+          - userdetails.docker.tests
+    volumes: 
+      - ./replicate:${SAG_HOME}/IntegrationServer/instances/default/replicate
+      - ./msc_consul_config_registry.cnf:${SAG_HOME}/IntegrationServer/instances/default/config/microservices/registry.cnf
+    ports:
+      - "5556:5555"
+    depends_on:
+      - consul-dev
+
+  consul-dev:
+    image: consul:1.2.3
+    command: "agent -server -dev -client=0.0.0.0 -ui -bootstrap -log-level warn"
+    networks:
+      sagdemodev:
+        aliases:
+          - consul.test
+    ports:
+      - "8400:8400"
+      - "8500:8500"
+      - "8600:8600"
+
+  compile:
+    image: ${REG}softwareag_ccbuild/abe:${TAG}
+    command: ant -DprojectName=${PROJECT_NAME} build
+    environment:
+      - EXIT_AFTER_COMMAND=false
+    volumes:
+      - .:/src
+    networks:
+      - sagdemodev
+
+  deploy:
+    image: ${REG}softwareag_ccbuild/deployer:${TAG}
+    command: ant -DprojectName=${PROJECT_NAME} deploy
+    environment:
+      - EXIT_AFTER_COMMAND=false
+    volumes:
+      - .:/src
+    ports:
+      - "8094:5555"
+      - "8095:9999"
+    networks:
+      - sagdemodev
+    depends_on:
+      - mscdev
+
+  unittests:
+    image: ${REG}softwareag_ccbuild/wmtestsuite:${TAG}
+    command: ant -DprojectName=${PROJECT_NAME} test
+    environment:
+      - EXIT_AFTER_COMMAND=false
+    volumes:
+      - .:/src
+    networks:
+      - sagdemodev
+    depends_on:
+      - mscdev

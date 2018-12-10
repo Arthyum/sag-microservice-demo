@@ -2,34 +2,33 @@ version: "3.0"
 
 networks:
   sagdemoruntime:
+    external: true
 
 services:
 
-  userservice_1:
-    image: ${CUSTOM_REGISTRY}apis/sag-microservices-demo/userservice:${TAG}
+  msc_apimashup_userfull_1:
+    image: ${REG}softwareag_custom/sag-microservice-demo_apimashup_userfull:${TAG}
     build:
       context: .
-      dockerfile: Dockerfile.userservice
+      dockerfile: Dockerfile.apimashup.userfull
       args:
         PARENT_IMAGE: store/softwareag/webmethods-microservicesruntime:${TAG}
         SAG_HOME: /opt/softwareag
         MSC_INSTANCE_NAME: default
-    volumes:
-      - ./msc_consul_config_registry.cnf:${SAG_HOME}/IntegrationServer/instances/default/config/microservices/registry.cnf
     ports:
       - "5556:5555"
+    environment:
+      - registry_activate=true
     networks:
       - sagdemoruntime
     depends_on:
       - consul-server-bootstrap
-      - consul-server-1
-      - consul-server-2
-      - consul-agent-1
-      - consul-agent-2
-      - consul-agent-3
+      - msc_iplocator_1
+      - msc_userinfo_1
+      - msc_fibonacci_1
 
-  iplocator_1:
-    image: ${CUSTOM_REGISTRY}apis/sag-microservices-demo/iplocator:${TAG}
+  msc_iplocator_1:
+    image: ${REG}softwareag_custom/sag-microservice-demo_iplocator:${TAG}
     build:
       context: .
       dockerfile: Dockerfile.iplocator
@@ -37,22 +36,17 @@ services:
         PARENT_IMAGE: store/softwareag/webmethods-microservicesruntime:${TAG}
         SAG_HOME: /opt/softwareag
         MSC_INSTANCE_NAME: default
-    volumes:
-      - ./msc_consul_config_registry.cnf:${SAG_HOME}/IntegrationServer/instances/default/config/microservices/registry.cnf
     ports:
       - "5557:5555"
+    environment:
+      - registry_activate=true
     networks:
       - sagdemoruntime
     depends_on:
       - consul-server-bootstrap
-      - consul-server-1
-      - consul-server-2
-      - consul-agent-1
-      - consul-agent-2
-      - consul-agent-3
 
-  userinfo_1:
-    image: ${CUSTOM_REGISTRY}apis/sag-microservices-demo/userinfo:${TAG}
+  msc_userinfo_1:
+    image: ${REG}softwareag_custom/sag-microservice-demo_userinfo:${TAG}
     build:
       context: .
       dockerfile: Dockerfile.userinfo
@@ -60,22 +54,18 @@ services:
         PARENT_IMAGE: store/softwareag/webmethods-microservicesruntime:${TAG}
         SAG_HOME: /opt/softwareag
         MSC_INSTANCE_NAME: default
-    volumes:
-      - ./msc_consul_config_registry.cnf:${SAG_HOME}/IntegrationServer/instances/default/config/microservices/registry.cnf
     ports:
       - "5558:5555"
+    environment:
+      - registry_activate=true
     networks:
       - sagdemoruntime
     depends_on:
       - consul-server-bootstrap
-      - consul-server-1
-      - consul-server-2
-      - consul-agent-1
-      - consul-agent-2
-      - consul-agent-3
+      - msc_randomutils_1
 
-  fibonacci_1:
-    image: ${CUSTOM_REGISTRY}apis/sag-microservices-demo/fibonacci:${TAG}
+  msc_fibonacci_1:
+    image: ${REG}softwareag_custom/sag-microservice-demo_fibonacci:${TAG}
     build:
       context: .
       dockerfile: Dockerfile.fibonacci
@@ -83,19 +73,32 @@ services:
         PARENT_IMAGE: store/softwareag/webmethods-microservicesruntime:${TAG}
         SAG_HOME: /opt/softwareag
         MSC_INSTANCE_NAME: default
-    volumes:
-      - ./msc_consul_config_registry.cnf:${SAG_HOME}/IntegrationServer/instances/default/config/microservices/registry.cnf
     ports:
       - "5559:5555"
+    environment:
+      - registry_activate=true
     networks:
       - sagdemoruntime
     depends_on:
       - consul-server-bootstrap
-      - consul-server-1
-      - consul-server-2
-      - consul-agent-1
-      - consul-agent-2
-      - consul-agent-3
+
+  msc_randomutils_1:
+    image: ${REG}softwareag_custom/sag-microservice-demo_randomutils:${TAG}
+    build:
+      context: .
+      dockerfile: Dockerfile.randomutils
+      args:
+        PARENT_IMAGE: store/softwareag/webmethods-microservicesruntime:${TAG}
+        SAG_HOME: /opt/softwareag
+        MSC_INSTANCE_NAME: default
+    ports:
+      - "5560:5555"
+    environment:
+      - registry_activate=true
+    networks:
+      - sagdemoruntime
+    depends_on:
+      - consul-server-bootstrap
 
   consul-agent-1: &consul-agent
     image: consul:1.2.3

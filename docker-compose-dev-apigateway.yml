@@ -5,6 +5,16 @@ networks:
     external: true
 
 services:
+  apigateway:
+    image: store/softwareag/apigateway-trial:${TAG}
+    ports:
+      - "6666:5555"
+      - "9072:9072"
+    networks:
+      sagdemodev:
+        aliases:
+          - apigateway.docker.tests
+
   mscdev:
     image: store/softwareag/webmethods-microservicesruntime:${TAG}
     networks:
@@ -15,7 +25,7 @@ services:
           - userinfo.clouddemo.saggov.com
           - userdetails.clouddemo.saggov.com
           - randomutils.clouddemo.saggov.com
-    volumes: 
+    volumes:
       - ./work/replicate/:${SAG_HOME}/IntegrationServer/instances/default/replicate/
       - ./assets/IS/Packages/WxAPIClientUtils/:${SAG_HOME}/IntegrationServer/instances/default/packages/WxAPIClientUtils/
       - ./assets/IS/Packages/WxAPIMashupUserFull/:${SAG_HOME}/IntegrationServer/instances/default/packages/WxAPIMashupUserFull/
@@ -46,6 +56,3 @@ services:
       - "8400:8400"
       - "8500:8500"
       - "8600:8600"
-
-
-

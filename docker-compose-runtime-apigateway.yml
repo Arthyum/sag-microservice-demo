@@ -1,0 +1,15 @@
+version: "3.0"
+
+networks:
+  sagdemoruntime:
+    external: true
+
+services:
+
+  apigateway:
+    image: store/softwareag/apigateway-trial:${TAG}
+    ports:
+      #- "5555:5555" --> let's not expose this port outside...since only the MSC servers should access this
+      - "9072:9072"
+    networks:
+      - sagdemoruntime
