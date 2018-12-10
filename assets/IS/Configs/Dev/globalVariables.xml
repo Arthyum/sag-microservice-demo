@@ -39,27 +39,27 @@
         <value name="isSecure">false</value>
       </record>
       <record javaclass="com.wm.data.ISMemDataImpl">
-        <value name="key">api_hostlookup_fibonacci</value>
+        <value name="key">WxFibonacci_api_host</value>
         <value name="value">localhost:5555</value>
         <value name="isSecure">false</value>
       </record>
       <record javaclass="com.wm.data.ISMemDataImpl">
-        <value name="key">api_hostlookup_userinfo</value>
+        <value name="key">WxIPLocator_api_host</value>
         <value name="value">localhost:5555</value>
         <value name="isSecure">false</value>
       </record>
       <record javaclass="com.wm.data.ISMemDataImpl">
-        <value name="key">api_hostlookup_iplocator</value>
+        <value name="key">WxRandomUtils_api_host</value>
         <value name="value">localhost:5555</value>
         <value name="isSecure">false</value>
       </record>
       <record javaclass="com.wm.data.ISMemDataImpl">
-        <value name="key">api_hostlookup_randomutils</value>
+        <value name="key">WxUserInfo_api_host</value>
         <value name="value">localhost:5555</value>
         <value name="isSecure">false</value>
       </record>
       <record javaclass="com.wm.data.ISMemDataImpl">
-        <value name="key">api_hostlookup_userservice</value>
+        <value name="key">WxAPIMashupUserFull_api_host</value>
         <value name="value">localhost:5555</value>
         <value name="isSecure">false</value>
       </record>
