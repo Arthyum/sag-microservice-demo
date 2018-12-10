@@ -7,7 +7,11 @@
   <null name="startup_services"/>
   <null name="shutdown_services"/>
   <null name="replication_services"/>
-  <null name="requires"/>
-  <null name="listACL"/>
+  <record name="requires" javaclass="com.wm.util.Values">
+    <value name="WxIPLocatorClient">1.0</value>
+    <value name="WxFibonacciClient">1.0</value>
+    <value name="WxUserInfoClient">1.0</value>
+  </record>
+  <value name="listACL">Default</value>
   <value name="webappLoad">yes</value>
 </Values>
