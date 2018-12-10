@@ -4,6 +4,7 @@ licenseKey.xml
 *license.key
 *_*.xml
 build/
+target/
 replicate/
 *.zip
 !wMPackages/*.zip
