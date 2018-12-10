@@ -26,6 +26,25 @@ public final class utils
 
 
 
+	public static final void getCallingServicePackage (IData pipeline)
+        throws ServiceException
+	{
+		// --- <<IS-START(getCallingServicePackage)>> ---
+		// @sigtype java 3.5
+		// [o] field:0:required packageName
+		// pipeline
+		IDataCursor pipelineCursor = pipeline.getCursor();		
+		String packageName = Service.getCallingService().getPackage().getName();	
+		IDataUtil.put( pipelineCursor, "packageName", packageName );
+		pipelineCursor.destroy();
+			
+		// --- <<IS-END>> ---
+
+                
+	}
+
+
+
 	public static final void getRandomInt (IData pipeline)
         throws ServiceException
 	{
