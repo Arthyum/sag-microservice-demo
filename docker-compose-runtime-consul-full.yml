@@ -27,24 +27,6 @@ services:
       - msc_userinfo_1
       - msc_fibonacci_1
 
-  msc_iplocator_1:
-    image: ${REG}softwareag_custom/sag-microservice-demo_iplocator:${TAG}
-    build:
-      context: .
-      dockerfile: Dockerfile.iplocator
-      args:
-        PARENT_IMAGE: store/softwareag/webmethods-microservicesruntime:${TAG}
-        SAG_HOME: /opt/softwareag
-        MSC_INSTANCE_NAME: default
-    ports:
-      - "5557:5555"
-    environment:
-      - registry_activate=true
-    networks:
-      - sagdemoruntime
-    depends_on:
-      - consul-server-bootstrap
-
   msc_userinfo_1:
     image: ${REG}softwareag_custom/sag-microservice-demo_userinfo:${TAG}
     build:
@@ -63,6 +45,24 @@ services:
     depends_on:
       - consul-server-bootstrap
       - msc_randomutils_1
+
+  msc_iplocator_1:
+    image: ${REG}softwareag_custom/sag-microservice-demo_iplocator:${TAG}
+    build:
+      context: .
+      dockerfile: Dockerfile.iplocator
+      args:
+        PARENT_IMAGE: store/softwareag/webmethods-microservicesruntime:${TAG}
+        SAG_HOME: /opt/softwareag
+        MSC_INSTANCE_NAME: default
+    ports:
+      - "5557:5555"
+    environment:
+      - registry_activate=true
+    networks:
+      - sagdemoruntime
+    depends_on:
+      - consul-server-bootstrap
 
   msc_fibonacci_1:
     image: ${REG}softwareag_custom/sag-microservice-demo_fibonacci:${TAG}

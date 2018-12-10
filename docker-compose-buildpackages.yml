@@ -18,21 +18,7 @@ services:
       - ./replicate:${SAG_HOME}/IntegrationServer/instances/default/replicate
       - ./msc_consul_config_registry.cnf:${SAG_HOME}/IntegrationServer/instances/default/config/microservices/registry.cnf
     ports:
-      - "5556:5555"
-    depends_on:
-      - consul-dev
-
-  consul-dev:
-    image: consul:1.2.3
-    command: "agent -server -dev -client=0.0.0.0 -ui -bootstrap -log-level warn"
-    networks:
-      sagdemodev:
-        aliases:
-          - consul.test
-    ports:
-      - "8400:8400"
-      - "8500:8500"
-      - "8600:8600"
+      - "5555:5555"
 
   compile:
     image: ${REG}softwareag_ccbuild/abe:${TAG}

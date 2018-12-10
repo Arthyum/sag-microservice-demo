@@ -5,6 +5,7 @@ networks:
     external: true
 
 services:
+
   msc_apimashup_userfull_1:
     image: ${REG}softwareag_custom/sag-microservice-demo_apimashup_userfull:${TAG}
     build:
@@ -18,15 +19,34 @@ services:
       - "5556:5555"
     environment:
       - registry_activate=false
-      - api_hostlookup_userinfo=msc_userinfo_1:5555
-      - api_hostlookup_iplocator=msc_iplocator_1:5555
-      - api_hostlookup_fibonacci=msc_fibonacci_1:5555
+      - WxUserInfo_api_host=msc_userinfo_1:5555
+      - WxIPLocator_api_host=msc_iplocator_1:5555
+      - WxFibonacci_api_host=msc_fibonacci_1:5555
     networks:
       - sagdemoruntime
     depends_on:
       - msc_iplocator_1
       - msc_userinfo_1
       - msc_fibonacci_1
+
+  msc_userinfo_1:
+    image: ${REG}softwareag_custom/sag-microservice-demo_userinfo:${TAG}
+    build:
+      context: .
+      dockerfile: Dockerfile.userinfo
+      args:
+        PARENT_IMAGE: store/softwareag/webmethods-microservicesruntime:${TAG}
+        SAG_HOME: /opt/softwareag
+        MSC_INSTANCE_NAME: default
+    ports:
+      - "5558:5555"
+    environment:
+      - registry_activate=false
+      - WxRandomUtils_api_host=msc_randomutils_1:5555
+    networks:
+      - sagdemoruntime
+    depends_on:
+      - msc_randomutils_1
 
   msc_iplocator_1:
     image: ${REG}softwareag_custom/sag-microservice-demo_iplocator:${TAG}
@@ -43,25 +63,6 @@ services:
       - registry_activate=false
     networks:
       - sagdemoruntime
-
-  msc_userinfo_1:
-    image: ${REG}softwareag_custom/sag-microservice-demo_userinfo:${TAG}
-    build:
-      context: .
-      dockerfile: Dockerfile.userinfo
-      args:
-        PARENT_IMAGE: store/softwareag/webmethods-microservicesruntime:${TAG}
-        SAG_HOME: /opt/softwareag
-        MSC_INSTANCE_NAME: default
-    ports:
-      - "5558:5555"
-    environment:
-      - registry_activate=false
-      - api_hostlookup_randomutils=msc_randomutils_1:5555
-    networks:
-      - sagdemoruntime
-    depends_on:
-      - msc_randomutils_1
 
   msc_fibonacci_1:
     image: ${REG}softwareag_custom/sag-microservice-demo_fibonacci:${TAG}
