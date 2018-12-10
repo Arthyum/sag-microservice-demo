@@ -1,0 +1,27 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0"
+  title: "iplocator"
+host: "iplocator.docker.tests:5555"
+basePath: "/restv2"
+schemes:
+- "http"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+paths:
+  /iplocator/{ip}:
+    get:
+      operationId: "iplocatorip_GET_1"
+      parameters:
+      - name: "ip"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Successful"
+        401:
+          description: "Access Denied"

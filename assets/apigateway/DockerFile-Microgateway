@@ -1,0 +1,37 @@
+ARG PARENT_MICROGATEWAY_BUILDER
+ARG PARENT_IMAGE
+
+# MUST use the micro gateway builder
+FROM $PARENT_MICROGATEWAY_BUILDER as builder
+
+FROM $PARENT_IMAGE
+
+MAINTAINER fabien.sanglier@softwareaggov.com
+
+ARG API_ARCHIVE
+
+ENV SAG_HOME /opt/softwareag
+ENV MICROGATEWAY_HOME $SAG_HOME/Microgateway
+ENV MICROGATEWAY_PORT 4485
+
+# Set path to the main executable folder in the IS profile
+ENV PATH=$PATH:$JAVA_HOME/bin
+
+## not necessarily needed if the parent image has already the sagadmin user  (uid 1724)defined (usually yes if parent is SAG MSC base image)
+#RUN adduser -u 1724 -g 1724 -D -h $SAG_HOME/ sagadmin
+
+RUN mkdir $MICROGATEWAY_HOME && mkdir $MICROGATEWAY_HOME/logs && chown -R 1724:1724 $MICROGATEWAY_HOME
+
+COPY --from=builder --chown=1724:1724 $MICROGATEWAY_HOME/config/ $MICROGATEWAY_HOME/config/
+COPY --from=builder --chown=1724:1724 $MICROGATEWAY_HOME/lib/ $MICROGATEWAY_HOME/lib/
+COPY --from=builder --chown=1724:1724 $MICROGATEWAY_HOME/files/ $MICROGATEWAY_HOME/files/
+COPY --from=builder --chown=1724:1724 $MICROGATEWAY_HOME/resources/ $MICROGATEWAY_HOME/resources/
+COPY --from=builder --chown=1724:1724 $MICROGATEWAY_HOME/*.jar $MICROGATEWAY_HOME/
+COPY --from=builder --chown=1724:1724 $MICROGATEWAY_HOME/*.sh $MICROGATEWAY_HOME/
+
+COPY --chown=1724:1724 $API_ARCHIVE $MICROGATEWAY_HOME/api_archive.zip
+
+#add entrypoint in the global bin
+ADD entrypoint.sh /usr/bin/
+
+ENTRYPOINT ["entrypoint.sh"]

@@ -1,0 +1,90 @@
+version: "3.0"
+
+networks:
+  sagdemoruntime:
+    external: true
+
+services:
+  microgateway_userservice:
+    image: ${REG}softwareag_custom/sag-microservices-demo/microgateway-userservice:${TAG}
+    build:
+      context: .
+      dockerfile: DockerFile-Microgateway
+      args:
+        PARENT_MICROGATEWAY_BUILDER: store/softwareag/microgateway-trial:${TAG}
+        PARENT_IMAGE: ${REG}softwareag_custom/sag-microservices-demo/userservice:${TAG}
+        API_ARCHIVE: apis/configs/passthru/userdetails.zip
+    environment:
+      - MICROGATEWAY_PORT=4485
+    networks:
+      - sagdemoruntime
+    ports:
+      - "8880:4485"
+    depends_on:
+      - consul
+
+  microgateway_iplocator:
+    image: ${REG}softwareag_custom/sag-microservices-demo/microgateway-iplocator:${TAG}
+    build:
+      context: .
+      dockerfile: DockerFile-Microgateway
+      args:
+        PARENT_MICROGATEWAY_BUILDER: store/softwareag/microgateway-trial:${TAG}
+        PARENT_IMAGE: ${REG}softwareag_custom/sag-microservices-demo/iplocator:${TAG}
+        API_ARCHIVE: apis/configs/passthru/iplocator.zip
+    environment:
+      - MICROGATEWAY_PORT=4485
+    networks:
+      - sagdemoruntime
+    ports:
+      - "8881:4485"
+    depends_on:
+      - consul
+
+  microgateway_userinfo:
+    image: ${REG}softwareag_custom/sag-microservices-demo/microgateway-userinfo:${TAG}
+    build:
+      context: .
+      dockerfile: DockerFile-Microgateway
+      args:
+        PARENT_MICROGATEWAY_BUILDER: store/softwareag/microgateway-trial:${TAG}
+        PARENT_IMAGE: ${REG}softwareag_custom/sag-microservices-demo/userinfo:${TAG}
+        API_ARCHIVE: apis/configs/passthru/userinfo.zip
+    environment:
+      - MICROGATEWAY_PORT=4485
+    networks:
+      - sagdemoruntime
+    ports:
+      - "8882:4485"
+    depends_on:
+      - consul
+
+  microgateway_fibonacci:
+    image: ${REG}softwareag_custom/sag-microservices-demo/microgateway-fibonacci:${TAG}
+    build:
+      context: .
+      dockerfile: DockerFile-Microgateway
+      args:
+        PARENT_MICROGATEWAY_BUILDER: store/softwareag/microgateway-trial:${TAG}
+        PARENT_IMAGE: ${REG}softwareag_custom/sag-microservices-demo/fibonacci:${TAG}
+        API_ARCHIVE: apis/configs/passthru/fibonacci.zip
+    environment:
+      - MICROGATEWAY_PORT=4485
+    networks:
+      - sagdemoruntime
+    ports:
+      - "8883:4485"
+    depends_on:
+      - consul
+
+  consul:
+    image: consul:1.2.3
+    command: "agent -server -dev -client=0.0.0.0 -ui -bootstrap -log-level warn"
+    networks:
+      sagdemoruntime:
+        aliases:
+          - consul.test
+    ports:
+      - "9400:8400"
+      - "9500:8500"
+      - "9600:8600"

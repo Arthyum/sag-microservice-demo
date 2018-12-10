@@ -1,0 +1,40 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0"
+  title: "userdetails"
+host: "userdetails.docker.tests:5555"
+basePath: "/restv2"
+schemes:
+- "http"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+paths:
+  /userdetails/{userId}:
+    get:
+      operationId: "userdetailsuserId_GET_1"
+      parameters:
+      - name: "userId"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Successful"
+        401:
+          description: "Access Denied"
+  /userdetails:
+    get:
+      operationId: "userdetails_GET"
+      parameters:
+      - name: "userId"
+        in: "formData"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "Successful"
+        401:
+          description: "Access Denied"
