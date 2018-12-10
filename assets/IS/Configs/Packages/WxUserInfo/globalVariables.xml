@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<IDataXMLCoder version="1.0">
+    <record javaclass="com.wm.data.ISMemDataImpl">
+        <array name="globalVariables" type="record" depth="1">
+            <record javaclass="com.wm.data.ISMemDataImpl">
+                <value name="key">registry_activate</value>
+                <value name="value">false</value>
+                <value name="isSecure">false</value>
+            </record>
+            <record javaclass="com.wm.data.ISMemDataImpl">
+                <value name="key">registry_alias</value>
+                <value name="value">test</value>
+                <value name="isSecure">false</value>
+            </record>
+            <record javaclass="com.wm.data.ISMemDataImpl">
+                <value name="key">WxUserInfo_api_name</value>
+                <value name="value">userinfo</value>
+                <value name="isSecure">false</value>
+            </record>
+            <record javaclass="com.wm.data.ISMemDataImpl">
+                <value name="key">api_hostlookup_userinfo</value>
+                <value name="value">localhost:5555</value>
+                <value name="isSecure">false</value>
+            </record>
+            <record javaclass="com.wm.data.ISMemDataImpl">
+                <value name="key">WxRandomUtils_api_name</value>
+                <value name="value">randomutils</value>
+                <value name="isSecure">false</value>
+            </record>
+            <record javaclass="com.wm.data.ISMemDataImpl">
+                <value name="key">api_hostlookup_randomutils</value>
+                <value name="value">localhost:5555</value>
+                <value name="isSecure">false</value>
+            </record>
+        </array>
+    </record>
+</IDataXMLCoder>
