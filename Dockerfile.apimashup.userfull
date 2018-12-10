@@ -1,0 +1,54 @@
+ARG PARENT_IMAGE
+
+FROM $PARENT_IMAGE
+
+MAINTAINER fabien.sanglier@softwareaggov.com
+
+ARG SAG_HOME
+ARG MSC_INSTANCE_NAME
+
+USER root
+
+ENV PACKAGES_HOME=$SAG_HOME/IntegrationServer/instances/${MSC_INSTANCE_NAME}/packages
+
+COPY target/sag-microservices-demo/build/IS/WxAPIClientUtils.zip $PACKAGES_HOME/
+COPY target/sag-microservices-demo/build/IS/WxAPIMashupUserFull.zip $PACKAGES_HOME/
+COPY target/sag-microservices-demo/build/IS/WxUserInfoClient.zip $PACKAGES_HOME/
+COPY target/sag-microservices-demo/build/IS/WxIPLocatorClient.zip $PACKAGES_HOME/
+COPY target/sag-microservices-demo/build/IS/WxFibonacciClient.zip $PACKAGES_HOME/
+
+RUN yum install -y unzip && \
+unzip $PACKAGES_HOME/WxAPIClientUtils.zip -d $PACKAGES_HOME/WxAPIClientUtils/ && \
+rm -f $PACKAGES_HOME/WxAPIClientUtils.zip && \
+chown -R sagadmin:sagadmin $PACKAGES_HOME/WxAPIClientUtils/ && \
+\
+unzip $PACKAGES_HOME/WxAPIMashupUserFull.zip -d $PACKAGES_HOME/WxAPIMashupUserFull/ && \
+rm -f $PACKAGES_HOME/WxAPIMashupUserFull.zip && \
+chown -R sagadmin:sagadmin $PACKAGES_HOME/WxAPIMashupUserFull/ && \
+\
+unzip $PACKAGES_HOME/WxUserInfoClient.zip -d $PACKAGES_HOME/WxUserInfoClient/ && \
+rm -f $PACKAGES_HOME/WxUserInfoClient.zip && \
+chown -R sagadmin:sagadmin $PACKAGES_HOME/WxUserInfoClient/ && \
+\
+unzip $PACKAGES_HOME/WxIPLocatorClient.zip -d $PACKAGES_HOME/WxIPLocatorClient/ && \
+rm -f $PACKAGES_HOME/WxIPLocatorClient.zip && \
+chown -R sagadmin:sagadmin $PACKAGES_HOME/WxIPLocatorClient/ && \
+\
+unzip $PACKAGES_HOME/WxFibonacciClient.zip -d $PACKAGES_HOME/WxFibonacciClient/ && \
+rm -f $PACKAGES_HOME/WxFibonacciClient.zip && \
+chown -R sagadmin:sagadmin $PACKAGES_HOME/WxFibonacciClient/ && \
+\
+yum remove -y unzip
+
+# copy the consul config
+COPY --chown=sagadmin:sagadmin assets/IS/Configs/Global/registry.xml $SAG_HOME/IntegrationServer/instances/${MSC_INSTANCE_NAME}/config/microservices/registry.cnf
+
+# copy the package specific settings
+COPY --chown=sagadmin:sagadmin assets/IS/Configs/Packages/WxAPIMashupUserFull/application.properties $SAG_HOME/IntegrationServer/instances/${MSC_INSTANCE_NAME}/
+COPY --chown=sagadmin:sagadmin assets/IS/Configs/Packages/WxAPIMashupUserFull/globalVariables.xml $SAG_HOME/IntegrationServer/instances/${MSC_INSTANCE_NAME}/config/globalVariables.cnf
+
+### ADD license key -- use embedded trial
+##COPY --chown=sagadmin:sagadmin licenseKey.xml $SAG_HOME/IntegrationServer/instances/${MSC_INSTANCE_NAME}/config/licenseKey.xml
+
+# Set it for subsequent commands
+USER sagadmin

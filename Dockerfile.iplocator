@@ -11,17 +11,29 @@ USER root
 
 ENV PACKAGES_HOME=$SAG_HOME/IntegrationServer/instances/${MSC_INSTANCE_NAME}/packages
 
-COPY target/sag-microservices-demo/build/IS/WxConsulHelper.zip $PACKAGES_HOME/
+COPY target/sag-microservices-demo/build/IS/WxAPIClientUtils.zip $PACKAGES_HOME/
 COPY target/sag-microservices-demo/build/IS/WxIPLocator.zip $PACKAGES_HOME/
 
 RUN yum install -y unzip && \
-unzip $PACKAGES_HOME/WxConsulHelper.zip -d $PACKAGES_HOME/WxConsulHelper/ && \
-rm -f $PACKAGES_HOME/WxConsulHelper.zip && \
-chown -R sagadmin:sagadmin $PACKAGES_HOME/WxConsulHelper/ && \
+unzip $PACKAGES_HOME/WxAPIClientUtils.zip -d $PACKAGES_HOME/WxAPIClientUtils/ && \
+rm -f $PACKAGES_HOME/WxAPIClientUtils.zip && \
+chown -R sagadmin:sagadmin $PACKAGES_HOME/WxAPIClientUtils/ && \
+\
 unzip $PACKAGES_HOME/WxIPLocator.zip -d $PACKAGES_HOME/WxIPLocator/ && \
 rm -f $PACKAGES_HOME/WxIPLocator.zip && \
 chown -R sagadmin:sagadmin $PACKAGES_HOME/WxIPLocator/ && \
+\
 yum remove -y unzip
+
+# copy the consul config
+COPY --chown=sagadmin:sagadmin assets/IS/Configs/Global/registry.xml $SAG_HOME/IntegrationServer/instances/${MSC_INSTANCE_NAME}/config/microservices/registry.cnf
+
+# copy the package specific settings
+COPY --chown=sagadmin:sagadmin assets/IS/Configs/Packages/WxIPLocator/application.properties $SAG_HOME/IntegrationServer/instances/${MSC_INSTANCE_NAME}/
+COPY --chown=sagadmin:sagadmin assets/IS/Configs/Packages/WxIPLocator/globalVariables.xml $SAG_HOME/IntegrationServer/instances/${MSC_INSTANCE_NAME}/config/globalVariables.cnf
+
+### ADD license key -- use embedded trial
+##COPY --chown=sagadmin:sagadmin licenseKey.xml $SAG_HOME/IntegrationServer/instances/${MSC_INSTANCE_NAME}/config/licenseKey.xml
 
 # Set it for subsequent commands
 USER sagadmin

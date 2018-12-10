@@ -12,21 +12,16 @@ USER root
 ENV PACKAGES_HOME=$SAG_HOME/IntegrationServer/instances/${MSC_INSTANCE_NAME}/packages
 
 COPY target/sag-microservices-demo/build/IS/WxAPIClientUtils.zip $PACKAGES_HOME/
-COPY target/sag-microservices-demo/build/IS/WxUserInfo.zip $PACKAGES_HOME/
-COPY target/sag-microservices-demo/build/IS/WxRandomUtilsClient.zip $PACKAGES_HOME/
+COPY target/sag-microservices-demo/build/IS/WxRandomUtils.zip $PACKAGES_HOME/
 
 RUN yum install -y unzip && \
 unzip $PACKAGES_HOME/WxAPIClientUtils.zip -d $PACKAGES_HOME/WxAPIClientUtils/ && \
 rm -f $PACKAGES_HOME/WxAPIClientUtils.zip && \
 chown -R sagadmin:sagadmin $PACKAGES_HOME/WxAPIClientUtils/ && \
 \
-unzip $PACKAGES_HOME/WxUserInfo.zip -d $PACKAGES_HOME/WxUserInfo/ && \
-rm -f $PACKAGES_HOME/WxUserInfo.zip && \
-chown -R sagadmin:sagadmin $PACKAGES_HOME/WxUserInfo/ && \
-\
-unzip $PACKAGES_HOME/WxRandomUtilsClient.zip -d $PACKAGES_HOME/WxRandomUtilsClient/ && \
-rm -f $PACKAGES_HOME/WxRandomUtilsClient.zip && \
-chown -R sagadmin:sagadmin $PACKAGES_HOME/WxRandomUtilsClient/ && \
+unzip $PACKAGES_HOME/WxRandomUtils.zip -d $PACKAGES_HOME/WxRandomUtils/ && \
+rm -f $PACKAGES_HOME/WxRandomUtils.zip && \
+chown -R sagadmin:sagadmin $PACKAGES_HOME/WxRandomUtils/ && \
 \
 yum remove -y unzip
 
@@ -34,8 +29,8 @@ yum remove -y unzip
 COPY --chown=sagadmin:sagadmin assets/IS/Configs/Global/registry.xml $SAG_HOME/IntegrationServer/instances/${MSC_INSTANCE_NAME}/config/microservices/registry.cnf
 
 # copy the package specific settings
-COPY --chown=sagadmin:sagadmin assets/IS/Configs/Packages/WxUserInfo/application.properties $SAG_HOME/IntegrationServer/instances/${MSC_INSTANCE_NAME}/
-COPY --chown=sagadmin:sagadmin assets/IS/Configs/Packages/WxUserInfo/globalVariables.xml $SAG_HOME/IntegrationServer/instances/${MSC_INSTANCE_NAME}/config/globalVariables.cnf
+COPY --chown=sagadmin:sagadmin assets/IS/Configs/Packages/WxRandomUtils/application.properties $SAG_HOME/IntegrationServer/instances/${MSC_INSTANCE_NAME}/
+COPY --chown=sagadmin:sagadmin assets/IS/Configs/Packages/WxRandomUtils/globalVariables.xml $SAG_HOME/IntegrationServer/instances/${MSC_INSTANCE_NAME}/config/globalVariables.cnf
 
 ### ADD license key -- use embedded trial
 ##COPY --chown=sagadmin:sagadmin licenseKey.xml $SAG_HOME/IntegrationServer/instances/${MSC_INSTANCE_NAME}/config/licenseKey.xml
