@@ -5,22 +5,23 @@
   <value name="system_package">no</value>
   <value name="version">1.0</value>
   <record name="startup_services" javaclass="com.wm.util.Values">
-    <null name="WxUserInfo.services.consul:registerAPI"/>
+    <null name="WxUserInfo.services.registry:registerAPI"/>
   </record>
   <record name="shutdown_services" javaclass="com.wm.util.Values">
-    <null name="WxUserInfo.services.consul:deregisterAPI"/>
+    <null name="WxUserInfo.services.registry:deregisterAPI"/>
   </record>
   <null name="replication_services"/>
   <record name="requires" javaclass="com.wm.util.Values">
-    <value name="WxConsulHelper">1.0</value>
+    <value name="WxAPIClientUtils">1.0</value>
+    <value name="WxRandomUtilsClient">1.0</value>
   </record>
   <value name="listACL">Default</value>
   <value name="webappLoad">yes</value>
   <value name="name">WxUserInfo</value>
-  <value name="build"></value>
+  <value name="build">1.0.1</value>
   <value name="description"></value>
-  <value name="time">2018-07-16 21:56:32 UTC</value>
-  <value name="jvm_version">1.8.0_151</value>
-  <value name="publisher">7268198b225d</value>
+  <value name="time">2018-12-09 04:11:54 UTC</value>
+  <value name="jvm_version">1.8.0_181</value>
+  <value name="publisher">7435b6fdcadb</value>
   <value name="patch_nums"></value>
 </Values>
