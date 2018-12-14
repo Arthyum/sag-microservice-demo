@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Values version="2.0">
+  <value name="node_type">restDescriptor</value>
+  <value name="node_subtype">restv2Descriptor</value>
+  <value name="node_nsName">WxUserInfo:userinfo_rad</value>
+  <value name="node_pkg">WxUserInfo</value>
+  <value name="is_public">false</value>
+  <record name="generalInfo" javaclass="com.wm.util.Values">
+    <value name="specVersion">2.0</value>
+    <value name="hostName">e0fd6418b869:5555</value>
+    <value name="basePath">/restv2</value>
+    <array name="schemes" type="value" depth="1">
+      <value>http</value>
+    </array>
+    <array name="consumes" type="value" depth="1">
+      <value>application/json</value>
+    </array>
+    <array name="produces" type="value" depth="1">
+      <value>application/json</value>
+    </array>
+  </record>
+  <record name="appInfo" javaclass="com.wm.util.Values">
+    <value name="appVersion">1.0</value>
+    <value name="title">UserInfo</value>
+    <null name="termsOfService"/>
+    <record name="contact" javaclass="com.wm.util.Values">
+      <null name="contactName"/>
+      <null name="contactUrl"/>
+      <null name="contactEmail"/>
+    </record>
+    <record name="license" javaclass="com.wm.util.Values">
+      <null name="licenseName"/>
+      <null name="licenseUrl"/>
+    </record>
+  </record>
+  <null name="sourceUri"/>
+  <null name="swaggerUrl"/>
+  <Boolean name="modifiable">true</Boolean>
+  <record name="restResources" javaclass="com.wm.util.Values">
+    <record name="/userinfo/{userId}" javaclass="com.wm.util.Values">
+      <value name="nsName">WxUserInfo:userinfo</value>
+      <value name="path">/userinfo/{userId}</value>
+      <null name="suffix"/>
+      <record name="operations" javaclass="com.wm.util.Values">
+        <record name="GET" javaclass="com.wm.util.Values">
+          <value name="operationType">GET</value>
+          <value name="nsName">/userinfo/{userId}_GET</value>
+          <array name="requiredDefinitions" type="value" depth="1">
+            <value>WxUserInfo.doc:UserRecord</value>
+            <value>/userinfo/{userId}_GET_$response</value>
+          </array>
+          <record name="parameters" javaclass="com.wm.util.Values">
+            <record name="userId" javaclass="com.wm.util.Values">
+              <value name="name">userId</value>
+              <value name="source">PATH</value>
+              <value name="type">STRING</value>
+              <null name="description"/>
+              <Boolean name="isRequired">true</Boolean>
+              <Boolean name="isArray">false</Boolean>
+              <null name="defaultValue"/>
+              <null name="refDefinition"/>
+              <null name="definitionName"/>
+              <Boolean name="includeInRad">true</Boolean>
+            </record>
+          </record>
+          <record name="responseParam" javaclass="com.wm.util.Values">
+            <value name="name">reseponse</value>
+            <value name="source">BODY</value>
+            <value name="type">REFERENCE</value>
+            <null name="description"/>
+            <Boolean name="isRequired">true</Boolean>
+            <Boolean name="isArray">false</Boolean>
+            <null name="defaultValue"/>
+            <value name="refDefinition">/userinfo/{userId}_GET_$response</value>
+            <null name="definitionName"/>
+            <Boolean name="includeInRad">true</Boolean>
+          </record>
+          <record name="responses" javaclass="com.wm.util.Values">
+            <record name="200" javaclass="com.wm.util.Values">
+              <value name="statusCode">200</value>
+              <value name="description">OK</value>
+              <Boolean name="returnOutput">true</Boolean>
+            </record>
+            <record name="401" javaclass="com.wm.util.Values">
+              <value name="statusCode">401</value>
+              <value name="description">Access Denied</value>
+              <Boolean name="returnOutput">false</Boolean>
+            </record>
+          </record>
+        </record>
+      </record>
+    </record>
+    <record name="/userinfo" javaclass="com.wm.util.Values">
+      <value name="nsName">WxUserInfo:userinfo</value>
+      <value name="path">/userinfo</value>
+      <null name="suffix"/>
+      <record name="operations" javaclass="com.wm.util.Values">
+        <record name="GET" javaclass="com.wm.util.Values">
+          <value name="operationType">GET</value>
+          <value name="nsName">/userinfo_GET</value>
+          <array name="requiredDefinitions" type="value" depth="1">
+            <value>WxUserInfo.doc:UserRecord</value>
+            <value>/userinfo_GET_$response</value>
+          </array>
+          <record name="parameters" javaclass="com.wm.util.Values">
+            <record name="userId" javaclass="com.wm.util.Values">
+              <value name="name">userId</value>
+              <value name="source">FORMDATA</value>
+              <value name="type">STRING</value>
+              <null name="description"/>
+              <Boolean name="isRequired">false</Boolean>
+              <Boolean name="isArray">false</Boolean>
+              <null name="defaultValue"/>
+              <null name="refDefinition"/>
+              <null name="definitionName"/>
+              <Boolean name="includeInRad">true</Boolean>
+            </record>
+          </record>
+          <record name="responseParam" javaclass="com.wm.util.Values">
+            <value name="name">reseponse</value>
+            <value name="source">BODY</value>
+            <value name="type">REFERENCE</value>
+            <null name="description"/>
+            <Boolean name="isRequired">true</Boolean>
+            <Boolean name="isArray">false</Boolean>
+            <null name="defaultValue"/>
+            <value name="refDefinition">/userinfo_GET_$response</value>
+            <null name="definitionName"/>
+            <Boolean name="includeInRad">true</Boolean>
+          </record>
+          <record name="responses" javaclass="com.wm.util.Values">
+            <record name="200" javaclass="com.wm.util.Values">
+              <value name="statusCode">200</value>
+              <value name="description">OK</value>
+              <Boolean name="returnOutput">true</Boolean>
+            </record>
+            <record name="401" javaclass="com.wm.util.Values">
+              <value name="statusCode">401</value>
+              <value name="description">Access Denied</value>
+              <Boolean name="returnOutput">false</Boolean>
+            </record>
+          </record>
+        </record>
+      </record>
+    </record>
+  </record>
+  <record name="restDefinitions" javaclass="com.wm.util.Values">
+    <record name="/userinfo_GET_$response" javaclass="com.wm.util.Values">
+      <value name="name">userinfo_GET_response</value>
+      <value name="nsName">/userinfo_GET_$response</value>
+      <Boolean name="autoGenerated">true</Boolean>
+      <Boolean name="recursive">false</Boolean>
+      <null name="description"/>
+      <record name="parameters" javaclass="com.wm.util.Values">
+        <record name="UserRecord" javaclass="com.wm.util.Values">
+          <value name="name">UserRecord</value>
+          <value name="source">BODY</value>
+          <value name="type">REFERENCE</value>
+          <null name="description"/>
+          <Boolean name="isRequired">true</Boolean>
+          <Boolean name="isArray">false</Boolean>
+          <null name="defaultValue"/>
+          <value name="refDefinition">WxUserInfo.doc:UserRecord</value>
+          <value name="definitionName">UserRecord</value>
+          <Boolean name="includeInRad">false</Boolean>
+        </record>
+      </record>
+    </record>
+    <record name="/userinfo/{userId}_GET_$response" javaclass="com.wm.util.Values">
+      <value name="name">userinfouserId_GET_response</value>
+      <value name="nsName">/userinfo/{userId}_GET_$response</value>
+      <Boolean name="autoGenerated">true</Boolean>
+      <Boolean name="recursive">false</Boolean>
+      <null name="description"/>
+      <record name="parameters" javaclass="com.wm.util.Values">
+        <record name="UserRecord" javaclass="com.wm.util.Values">
+          <value name="name">UserRecord</value>
+          <value name="source">BODY</value>
+          <value name="type">REFERENCE</value>
+          <null name="description"/>
+          <Boolean name="isRequired">true</Boolean>
+          <Boolean name="isArray">false</Boolean>
+          <null name="defaultValue"/>
+          <value name="refDefinition">WxUserInfo.doc:UserRecord</value>
+          <value name="definitionName">UserRecord</value>
+          <Boolean name="includeInRad">false</Boolean>
+        </record>
+      </record>
+    </record>
+    <record name="WxUserInfo.doc:UserRecord" javaclass="com.wm.util.Values">
+      <value name="name">UserRecord</value>
+      <value name="nsName">WxUserInfo.doc:UserRecord</value>
+      <Boolean name="autoGenerated">false</Boolean>
+      <Boolean name="recursive">false</Boolean>
+      <null name="description"/>
+      <record name="parameters" javaclass="com.wm.util.Values">
+        <record name="userId" javaclass="com.wm.util.Values">
+          <value name="name">userId</value>
+          <value name="source">FORMDATA</value>
+          <value name="type">STRING</value>
+          <null name="description"/>
+          <Boolean name="isRequired">true</Boolean>
+          <Boolean name="isArray">false</Boolean>
+          <null name="defaultValue"/>
+          <null name="refDefinition"/>
+          <null name="definitionName"/>
+          <Boolean name="includeInRad">true</Boolean>
+        </record>
+        <record name="firstName" javaclass="com.wm.util.Values">
+          <value name="name">firstName</value>
+          <value name="source">FORMDATA</value>
+          <value name="type">STRING</value>
+          <null name="description"/>
+          <Boolean name="isRequired">true</Boolean>
+          <Boolean name="isArray">false</Boolean>
+          <null name="defaultValue"/>
+          <null name="refDefinition"/>
+          <null name="definitionName"/>
+          <Boolean name="includeInRad">true</Boolean>
+        </record>
+        <record name="lastName" javaclass="com.wm.util.Values">
+          <value name="name">lastName</value>
+          <value name="source">FORMDATA</value>
+          <value name="type">STRING</value>
+          <null name="description"/>
+          <Boolean name="isRequired">true</Boolean>
+          <Boolean name="isArray">false</Boolean>
+          <null name="defaultValue"/>
+          <null name="refDefinition"/>
+          <null name="definitionName"/>
+          <Boolean name="includeInRad">true</Boolean>
+        </record>
+        <record name="otherText1" javaclass="com.wm.util.Values">
+          <value name="name">otherText1</value>
+          <value name="source">FORMDATA</value>
+          <value name="type">STRING</value>
+          <null name="description"/>
+          <Boolean name="isRequired">true</Boolean>
+          <Boolean name="isArray">false</Boolean>
+          <null name="defaultValue"/>
+          <null name="refDefinition"/>
+          <null name="definitionName"/>
+          <Boolean name="includeInRad">true</Boolean>
+        </record>
+        <record name="otherText2" javaclass="com.wm.util.Values">
+          <value name="name">otherText2</value>
+          <value name="source">FORMDATA</value>
+          <value name="type">STRING</value>
+          <null name="description"/>
+          <Boolean name="isRequired">true</Boolean>
+          <Boolean name="isArray">false</Boolean>
+          <null name="defaultValue"/>
+          <null name="refDefinition"/>
+          <null name="definitionName"/>
+          <Boolean name="includeInRad">true</Boolean>
+        </record>
+        <record name="ip" javaclass="com.wm.util.Values">
+          <value name="name">ip</value>
+          <value name="source">FORMDATA</value>
+          <value name="type">STRING</value>
+          <null name="description"/>
+          <Boolean name="isRequired">true</Boolean>
+          <Boolean name="isArray">false</Boolean>
+          <null name="defaultValue"/>
+          <null name="refDefinition"/>
+          <null name="definitionName"/>
+          <Boolean name="includeInRad">true</Boolean>
+        </record>
+        <record name="favNumber" javaclass="com.wm.util.Values">
+          <value name="name">favNumber</value>
+          <value name="source">FORMDATA</value>
+          <value name="type">STRING</value>
+          <null name="description"/>
+          <Boolean name="isRequired">true</Boolean>
+          <Boolean name="isArray">false</Boolean>
+          <null name="defaultValue"/>
+          <null name="refDefinition"/>
+          <null name="definitionName"/>
+          <Boolean name="includeInRad">true</Boolean>
+        </record>
+      </record>
+    </record>
+  </record>
+  <null name="radSource"/>
+  <value name="radVersion">1.0</value>
+  <array name="generatedDoctypes" type="record" depth="1">
+  </array>
+  <array name="generatedServices" type="record" depth="1">
+  </array>
+  <array name="generatedRestResources" type="record" depth="1">
+  </array>
+  <array name="resourceNodeNSNames" type="value" depth="1">
+    <value>WxUserInfo:userinfo</value>
+  </array>
+</Values>
