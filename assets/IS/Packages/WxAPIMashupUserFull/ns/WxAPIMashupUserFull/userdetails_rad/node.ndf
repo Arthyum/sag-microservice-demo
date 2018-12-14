@@ -5,11 +5,12 @@
   <value name="node_subtype">restv2Descriptor</value>
   <value name="node_nsName">WxAPIMashupUserFull:userdetails_rad</value>
   <value name="node_pkg">WxAPIMashupUserFull</value>
+  <value name="node_comment"></value>
   <value name="is_public">false</value>
   <record name="generalInfo" javaclass="com.wm.util.Values">
     <value name="specVersion">2.0</value>
     <value name="hostName">7435b6fdcadb:5555</value>
-    <value name="basePath">/rad/WxAPIMashupUserFull:userdetails_rad</value>
+    <value name="basePath">/restv2</value>
     <array name="schemes" type="value" depth="1">
       <value>http</value>
     </array>
@@ -46,13 +47,12 @@
         <record name="GET" javaclass="com.wm.util.Values">
           <value name="operationType">GET</value>
           <value name="nsName">/userdetails/{userId}_GET</value>
-          <value name="description"></value>
           <record name="parameters" javaclass="com.wm.util.Values">
             <record name="userId" javaclass="com.wm.util.Values">
               <value name="name">userId</value>
               <value name="source">PATH</value>
               <value name="type">STRING</value>
-              <value name="description"></value>
+              <null name="description"/>
               <Boolean name="isRequired">true</Boolean>
               <Boolean name="isArray">false</Boolean>
               <null name="defaultValue"/>
