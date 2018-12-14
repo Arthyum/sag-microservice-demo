@@ -1,0 +1,128 @@
+version: "3.0"
+
+networks:
+  sag:
+    external: true
+
+services:
+
+  msc_apimashup_userfull_1:
+    image: ${REG}softwareag_custom/sag-microservice-demo_apimashup_userfull:${TAG}
+    environment:
+      - registry_activate=false
+      - WxUserInfo_api_host=msc_userinfo_1:5555
+      - WxIPLocator_api_host=msc_iplocator_1:5555
+      - WxFibonacci_api_host=msc_fibonacci_1:5555
+    networks:
+      - sag
+    depends_on:
+      - msc_iplocator_1
+      - msc_userinfo_1
+      - msc_fibonacci_1
+    deploy:
+      replicas: 1
+      labels:
+        traefik.port: 5555
+        traefik.docker.network: "sag"
+        traefik.protocol: "http"
+        traefik.frontend.rule: "Host:userfull.sag_microservice_demo.apis.clouddemo.saggov.com"
+        traefik.backend.loadbalancer.sticky: "true"
+        traefik.enable: "true"
+      restart_policy:
+        condition: any
+
+  msc_userinfo_1:
+    image: ${REG}softwareag_custom/sag-microservice-demo_userinfo:${TAG}
+    environment:
+      - registry_activate=false
+      - WxRandomUtils_api_host=msc_randomutils_1:5555
+    networks:
+      - sag
+    depends_on:
+      - msc_randomutils_1
+    deploy:
+      replicas: 1
+      labels:
+        traefik.port: 5555
+        traefik.docker.network: "sag"
+        traefik.protocol: "http"
+        traefik.frontend.rule: "Host:userinfo.sag_microservice_demo.apis.clouddemo.saggov.com"
+        traefik.backend.loadbalancer.sticky: "true"
+        traefik.enable: "true"
+      restart_policy:
+        condition: any
+
+  msc_iplocator_1:
+    image: ${REG}softwareag_custom/sag-microservice-demo_iplocator:${TAG}
+    build:
+      context: .
+      dockerfile: Dockerfile.iplocator
+      args:
+        PARENT_IMAGE: store/softwareag/webmethods-microservicesruntime:${TAG}
+        SAG_HOME: /opt/softwareag
+        MSC_INSTANCE_NAME: default
+    environment:
+      - registry_activate=false
+    networks:
+      - sag
+    deploy:
+      replicas: 1
+      labels:
+        traefik.port: 5555
+        traefik.docker.network: "sag"
+        traefik.protocol: "http"
+        traefik.frontend.rule: "Host:iplocator.sag_microservice_demo.apis.clouddemo.saggov.com"
+        traefik.backend.loadbalancer.sticky: "true"
+        traefik.enable: "true"
+      restart_policy:
+        condition: any
+
+  msc_fibonacci_1:
+    image: ${REG}softwareag_custom/sag-microservice-demo_fibonacci:${TAG}
+    build:
+      context: .
+      dockerfile: Dockerfile.fibonacci
+      args:
+        PARENT_IMAGE: store/softwareag/webmethods-microservicesruntime:${TAG}
+        SAG_HOME: /opt/softwareag
+        MSC_INSTANCE_NAME: default
+    environment:
+      - registry_activate=false
+    networks:
+      - sag
+    deploy:
+      replicas: 1
+      labels:
+        traefik.port: 5555
+        traefik.docker.network: "sag"
+        traefik.protocol: "http"
+        traefik.frontend.rule: "Host:fibonacci.sag_microservice_demo.apis.clouddemo.saggov.com"
+        traefik.backend.loadbalancer.sticky: "true"
+        traefik.enable: "true"
+      restart_policy:
+        condition: any
+
+  msc_randomutils_1:
+    image: ${REG}softwareag_custom/sag-microservice-demo_randomutils:${TAG}
+    build:
+      context: .
+      dockerfile: Dockerfile.randomutils
+      args:
+        PARENT_IMAGE: store/softwareag/webmethods-microservicesruntime:${TAG}
+        SAG_HOME: /opt/softwareag
+        MSC_INSTANCE_NAME: default
+    environment:
+      - registry_activate=false
+    networks:
+      - sag
+    deploy:
+      replicas: 1
+      labels:
+        traefik.port: 5555
+        traefik.docker.network: "sag"
+        traefik.protocol: "http"
+        traefik.frontend.rule: "Host:randomutils.sag_microservice_demo.apis.clouddemo.saggov.com"
+        traefik.backend.loadbalancer.sticky: "true"
+        traefik.enable: "true"
+      restart_policy:
+        condition: any
