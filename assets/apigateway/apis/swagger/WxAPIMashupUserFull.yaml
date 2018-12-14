@@ -2,8 +2,8 @@
 swagger: "2.0"
 info:
   version: "1.0"
-  title: "userdetails"
-host: "userdetails.docker.tests:5555"
+  title: "UserFull"
+host: "7435b6fdcadb:5555"
 basePath: "/restv2"
 schemes:
 - "http"
@@ -22,19 +22,6 @@ paths:
         type: "string"
       responses:
         200:
-          description: "Successful"
-        401:
-          description: "Access Denied"
-  /userdetails:
-    get:
-      operationId: "userdetails_GET"
-      parameters:
-      - name: "userId"
-        in: "formData"
-        required: false
-        type: "string"
-      responses:
-        200:
-          description: "Successful"
+          description: "OK"
         401:
           description: "Access Denied"

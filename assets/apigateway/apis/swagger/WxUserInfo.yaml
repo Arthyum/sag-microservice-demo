@@ -2,8 +2,8 @@
 swagger: "2.0"
 info:
   version: "1.0"
-  title: "userinfo"
-host: "userinfo.docker.tests:5555"
+  title: "UserInfo"
+host: "e0fd6418b869:5555"
 basePath: "/restv2"
 schemes:
 - "http"
@@ -22,14 +22,14 @@ paths:
         type: "string"
       responses:
         200:
-          description: "Successful"
+          description: "OK"
           schema:
             $ref: "#/definitions/userinfouserId_GET_response"
         401:
           description: "Access Denied"
   /userinfo:
     get:
-      operationId: "userinfo_GET"
+      operationId: "userinfo_GET_2"
       parameters:
       - name: "userId"
         in: "formData"
@@ -37,19 +37,25 @@ paths:
         type: "string"
       responses:
         200:
-          description: "Successful"
+          description: "OK"
           schema:
             $ref: "#/definitions/userinfo_GET_response"
         401:
           description: "Access Denied"
 definitions:
+  userinfo_GET_response:
+    required:
+    - "UserRecord"
+    properties:
+      UserRecord:
+        $ref: "#/definitions/UserRecord"
   userinfouserId_GET_response:
     required:
     - "UserRecord"
     properties:
       UserRecord:
-        $ref: "#/definitions/UserRecord_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1"
-  UserRecord_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1:
+        $ref: "#/definitions/UserRecord"
+  UserRecord:
     required:
     - "favNumber"
     - "firstName"
@@ -73,9 +79,3 @@ definitions:
         type: "string"
       userId:
         type: "string"
-  userinfo_GET_response:
-    required:
-    - "UserRecord"
-    properties:
-      UserRecord:
-        $ref: "#/definitions/UserRecord_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1"
